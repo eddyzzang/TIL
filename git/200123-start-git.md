@@ -1,25 +1,51 @@
-# start git
+## PCA (주성분 분석)
+- 고차원 데이터 집합이 주어졌을 때 원래의 고차원 데이터와 가장 비슷하면서 더 낮은 차원 데이터를 찾아내는 방법.
+- 차원 축소라고도 불린다.
+- 잠재변수
+    - 측정되지는 않지만 측정된 데이터의 기저에 숨어서 측정데이터를 결정짓는 데이터
+- 차원축소와 투영
+    - 차원축소문제는 다차원 벡터를 더 낮은 차원의 벡터공간에 투영하는 문제로 생각하여 풀 수 있다. 즉, 로우랭크 근사 문제가 된다.
 
-## Today I Learned..
+## 사이킷런의 PCA 기능
+- 입력 인수
+    - n_components : 정수
+- 메서드
+    - fit_transform() : 특징행렬을 낮은 차원의 근사행렬로 변환
+    - inverse_transform : 변환된 근사행렬을 원래의 차원으로 복귀
+- 속성
+    - mean_ : 평균벡터
+    - components_ : 주성분 벡터
 
-- history of Linux
-- bash command
-  - `$ ls`
-  - `$ cd`
-  - ..
-- vim text editor
-  - normal mode : command (press ESC on any mode)
-  - insert mode : edit text file (press i on normal mode)
-  - visual mode : do with text block (press v on normal mode)
-- start git with `$ git init`
-- start git with `$ git clone`
-- TIL convention
-- start blog with hexo
-  - installation
-  - configuration
-  - start project
-  - create post
-  - theme
-
-## Tomorrow I'll Learn..
+- 예시 (붓꽃 데이터를 1차원으로 차원축소)
+    - from sklearn.datasets import load_iris
+    - from sklearn.decomposition import PCA
+    - iris = load_iris()
+    - X = iris.data[:10, :2]
+        array([[5.1, 3.5],
+        [4.9, 3. ],
+       [4.7, 3.2],
+       [4.6, 3.1],
+       [5. , 3.6],
+       [5.4, 3.9],
+       [4.6, 3.4],
+       [5. , 3.4],
+       [4.4, 2.9],
+       [4.9, 3.1]])
+    - pca1 = PCA(n_components=1) #1차원으로 만들기
+    - X_low = pca1.fit_transform(X)
+    - X_low
+        array([[ 0.30270263],
+       [-0.1990931 ],
+       [-0.18962889],
+       [-0.33097106],
+       [ 0.30743473],
+       [ 0.79976625],
+       [-0.11185966],
+       [ 0.16136046],
+       [-0.61365539],
+       [-0.12605597]])
+- pca1.mean_
+    array([4.86, 3.31])
+- pca1.components_ #파란색 기저벡터의 방향 (X행렬의 오른쪽 특이벡터 중 맨 첫번째 것)
+    array([[0.68305029, 0.73037134]])
 
